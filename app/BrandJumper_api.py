@@ -1,9 +1,11 @@
 from fastapi import FastAPI, HTTPException
-from app import generate_brand_name, generate_tagline
-
-max_input_length = 32
+from BrandJumper import generate_brand_name, generate_tagline
+from mangum import Mangum
 
 app = FastAPI()
+handler = Mangum(app)
+
+max_input_length = 14
 
 @app.get("/generate_name")
 async def generate_name_api(prompt: str):
@@ -28,4 +30,4 @@ def validate_input_length(prompt: str):
     if len(prompt) >= max_input_length:
         raise HTTPException(status_code=400, detail=f"Prompt is limited to {max_input_length} characters. Please try again.")
 
-# uvicorn app_api:app --reload
+# uvicorn BrandJumper_api:app --reload

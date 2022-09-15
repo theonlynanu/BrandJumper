@@ -1,5 +1,4 @@
 import os
-from tkinter.font import names
 import openai
 import argparse
 import re
